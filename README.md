@@ -27,9 +27,10 @@ Start the server : `go run server.go`.
 
 
 ### `books/`
-GET
+Methode: GET  
 ### `books/post`
-POST
+Methode: POST  
+Body envoyé:
 ```
 {
 	"title": "13 Shades of Pumpkins",
@@ -39,7 +40,8 @@ POST
 }
 ```
 ### `books/update`
-PUT
+Methode: PUT  
+Body envoyé:
 ```
 {
 	"id": 1,
@@ -50,14 +52,19 @@ PUT
 }
 ```
 ### `books/delete`
-DELETE
+Methode: DELETE  
+Body envoyé:
 ```
 1
 ```
 ### `books/deletex`
-DELETE
+Methode: DELETE  
+Body envoyé:
 ```
 [2,3]
 ```
+
 ### `books/filter`
-GET -> `http://localhost:8080/books/filters?search=Pum&date_start=2005-12-01&date_end=2019-11-02`
+Methode: GET  
+Url parameters (optional) : search, date_start, date_end  
+`http://localhost:8080/books/filters?search=Pum&date_start=2005-12-01&date_end=2019-11-02`
