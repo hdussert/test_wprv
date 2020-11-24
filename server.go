@@ -11,5 +11,8 @@ func main() {
 	bookGroup := router.NewGroup("/books")
 	bookGroup.GET("/", HANDLERS.GetBooks)
 	bookGroup.POST("/post", HANDLERS.PostBook)
+	bookGroup.PUT("/update", HANDLERS.UpdateBook)
+	bookGroup.DELETE("/delete", HANDLERS.DeleteBook)
+	bookGroup.DELETE("/deletex", HANDLERS.DeleteBooks)
 	http.ListenAndServe(":8080", router)
 }
