@@ -2,36 +2,19 @@ package handlers
 
 import (
 	"net/http"
-	"io/ioutil"
-	DB "../db"
-	"encoding/json"
 )
 
 // PostBook : Add a new book to the librairie
 func PostBook(w http.ResponseWriter, r *http.Request, params map[string]string) {
-	
-	rByte, err := ioutil.ReadAll(r.Body)
-	defer r.Body.Close()
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
 	var book Book
-	err = json.Unmarshal(rByte, &book)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-	
+	ParseBody(w, r, &book)
 	query := `INSERT INTO books (title, description, autor, date) VALUES ($1, $2, $3, $4)`
-	
-	db := DB.OpenConnection()
-	_, err = db.Exec(query, book.Title, book.Description, book.Autor, book.Date)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-	}
 
-	w.WriteHeader(http.StatusOK)
-	defer db.Close()
+	var queryParams []interface{}
+	queryParams = append(queryParams, book.Title)
+	queryParams = append(queryParams, book.Description)
+	queryParams = append(queryParams, book.Autor)
+	queryParams = append(queryParams, book.Date)
+
+	PostPutDeleteHandler(w, r, query, queryParams)
 }
