@@ -14,5 +14,6 @@ func main() {
 	bookGroup.PUT("/update", HANDLERS.UpdateBook)
 	bookGroup.DELETE("/delete", HANDLERS.DeleteBook)
 	bookGroup.DELETE("/deletex", HANDLERS.DeleteBooks)
+	bookGroup.GET("/filter/", HANDLERS.FilterBooks)
 	http.ListenAndServe(":8080", router)
 }
